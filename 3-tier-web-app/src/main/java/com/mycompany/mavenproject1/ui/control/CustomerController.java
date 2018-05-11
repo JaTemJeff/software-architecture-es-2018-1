@@ -27,22 +27,28 @@ public class CustomerController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         Country country = new Country();
-        Customer newCustomer = new Customer(
-                                        0, 
-                                        req.getParameter("inputName"), 
-                                        new Integer(req.getParameter("inputAge")), 
-                                        req.getParameter("inputPhone"),
-                                        req.getParameter("selectCountry"),
-                                        new Double(req.getParameter("inputCreditLimit"))
-                                        );
+        Customer newCustomer = null;
+        try {
+            newCustomer = new Customer(
+                    0,
+                    req.getParameter("inputName"),
+                    new Integer(req.getParameter("inputAge")),
+                    req.getParameter("inputPhone"),
+                    req.getParameter("selectCountry"),
+                    new Double(req.getParameter("inputCreditLimit"))
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         CustomerBusiness business = new CustomerBusiness();
+        
         try {
             business.create(newCustomer);
-            req.getSession().setAttribute("custumerList", business.readAll());
+            req.getSession().setAttribute("customerList", business.readAll());
             
         } catch (Exception ex) {
-            Logger.getLogger(CountryController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

@@ -116,5 +116,9 @@ public class Customer {
         return "Customer{" + "name=" + name + ", age=" + age + ", phone=" + phone + ", country=" + country + ", creditLimit=" + creditLimit + '}';
     }
 
+    private void setCountry(String country) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

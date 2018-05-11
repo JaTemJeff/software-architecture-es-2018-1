@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Customer Page</title>
     </head>
     <body>
         <div class="container">
@@ -36,10 +37,10 @@
                         <label for="inputPhone">Phone</label>
                         <input class="form-control" type="number" id="inputPhone" name="inputPhone" min="2" max="16"/>
                     </div>
-                    <select name="selectCountry">
-                        <option value="A">A</option>
-                        <option value="B">A</option>
-                        <option value="-">Other</option>
+                    <select name="selectCountry" class="drop-down">
+                        <c:forEach var ="country" items="${sessionScope.countryList}">    
+                            <option value="fn:escapeXml(country.acronym)}">${fn:escapeXml(country.acronym)}</option>
+                        </c:forEach>
                     </select>
                     <div class="form-group">
                         <label for="inputCreditLimit">CreditLimit</label>
@@ -55,17 +56,21 @@
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
-                            <th>Acronym</th>
-                            <th>Digits</th>
+                            <th>Age</th>
+                            <th>Phone</th>
+                            <th>Country</th>
+                            <th>Credit Limits</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var = "country" items="${sessionScope.countryList}">
+                        <c:forEach var = "customer" items="${sessionScope.customerList}">
                             <tr>
-                                <td>${country.id}</td>
-                                <td>${country.name}</td>
-                                <td>${country.acronym}</td>
-                                <td>${country.digits}</td>
+                                <td>${customer.id}</td>
+                                <td>${customer.name}</td>
+                                <td>${customer.age}</td>
+                                <td>${customer.phone}</td>
+                                <td>${customer.country.name}</td>
+                                <td>${customer.creditLimit}</td>
                             </tr>                            
                         </c:forEach> 
                     </tbody>
